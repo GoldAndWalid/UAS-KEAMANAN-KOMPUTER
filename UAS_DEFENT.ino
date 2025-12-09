@@ -21,7 +21,7 @@ const char* password = "1234567890"; //--> password wifi
 
 // Google script Web_App_URL (PASTIKAN INI URL DEPLOY TERBARU ANDA)
 // SETELAH DEPLOY ULANG GOOGLE SCRIPT, MASUKKAN URL BARU DI SINI:
-String Web_App_URL = "https://script.google.com/macros/s/AKfycbwhIPSceoMtFaSS48S6XX_7Vi6M4Tmr0XaBUsLw7Gj8weGPyrD2zQXMJNad9chBMmfa/exec";
+String Web_App_URL = "Masukan ID Google API Script";
 
 String reg_Info = "";
 
