@@ -1,75 +1,119 @@
-ESP32 Attendance System – Attack & Defense Lab
-Repositori ini digunakan untuk demonstrasi pengujian keamanan dasar (Attack Simulation) dan perbaikan keamanan (Defense) pada sistem absensi ESP32 yang mengirim data ke Google Spreadsheet menggunakan Google Apps Script.
+Berikut adalah format **README.md** yang sudah dirapikan dan siap Anda *copy-paste* langsung ke GitHub.
 
-⚠️ Catatan: Semua langkah di sini hanya untuk lab uji coba pendidikan.
-Penyalahgunaan di luar itu adalah tanggung jawab Anda sepenuhnya.
+-----
 
-## 1. Cara Melakukan Attack Simulation (DDoS ke Endpoint Google Apps Script)
-Tujuan bagian ini: memahami bagaimana endpoint yang diekspos (URL Apps Script) dapat dieksploitasi ketika tampil di Serial Monitor ESP32.
+````markdown
+# 🛡️ ESP32 Attendance System: Attack & Defense Lab
 
-A. Hubungkan ESP32 ke Laptop
-Gunakan kabel USB → pastikan ESP32 terdeteksi.
+Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar (**Attack Simulation**) dan strategi mitigasi (**Defense**) pada sistem absensi berbasis ESP32 yang terintegrasi dengan Google Spreadsheet (via Google Apps Script).
 
-B. Dapatkan URL Google Apps Script
-Atur VirtualBox USB (jika pakai VM).
-Pastikan ESP32 terdeteksi oleh VirtualBox.
+> **⚠️ DISCLAIMER PENTING**
+>
+> Semua panduan, kode, dan instruksi dalam repositori ini ditujukan **hanya untuk keperluan pendidikan dan laboratorium**.
+> Penyalahgunaan informasi ini untuk menyerang sistem tanpa izin adalah tindakan ilegal dan sepenuhnya menjadi tanggung jawab pengguna.
 
-Masuk ke Linux, buka terminal.
+---
 
-Cek device ESP32:
+## 🎯 Tujuan Lab
+1.  **Reconnaissance:** Memahami bagaimana informasi sensitif (URL Endpoint) bisa bocor melalui Serial Monitor.
+2.  **Exploitation:** Melakukan simulasi serangan (*flooding*) ke endpoint yang terekspos.
+3.  **Hardening:** Mengamankan sistem dengan mekanisme *Secret Token* dan sanitasi log.
 
+---
+
+## ⚔️ Bagian 1: Attack Simulation (Red Team)
+**Skenario:** Penyerang memiliki akses fisik ke perangkat ESP32 dan mencoba mencuri URL API untuk membanjiri database dengan data sampah.
+
+### Langkah A: Koneksi & Reconnaissance
+1.  Hubungkan ESP32 ke Laptop menggunakan kabel USB.
+2.  Pastikan driver terinstal dan perangkat terdeteksi.
+3.  Jika menggunakan **VirtualBox** (Linux VM), pastikan USB filter aktif agar ESP32 terbaca (`/dev/ttyUSB0`).
+
+### Langkah B: Mencuri URL Endpoint (Sniffing Serial)
+Buka terminal Linux dan cek port serial:
+```bash
 ls /dev/tty*
-Buka serial monitor menggunakan picocom:
+````
 
+Buka **Serial Monitor** menggunakan `picocom` (atau tool lain) dengan baudrate `115200`:
+
+```bash
 picocom -b 115200 /dev/ttyUSB0
-Lihat output dan ambil URL Google Apps Script yang muncul dari ESP32.
+```
 
-C. Lakukan Attack (Simulasi DDoS)
-Gunakan PyCharm untuk membuat script Python sederhana yang mengirim request terus-menerus ke URL tersebut.
+**Hasil:** Perhatikan output pada terminal. Salin **URL Google Apps Script** yang terekspos (tercetak) di log serial saat ESP32 mengirim data.
 
-Masukkan URL yang sudah kamu dapatkan dari serial tadi.
+### Langkah C: Melancarkan Serangan (Flooding)
 
-Script ini akan membanjiri endpoint sehingga:
+Buat script Python sederhana (gunakan PyCharm/VS Code) untuk mengirim HTTP Request secara terus-menerus ke URL yang didapatkan tadi.
 
-Google Sheet menerima terlalu banyak request
+**Dampak yang diharapkan:**
 
-Spreadsheet penuh
+  * 📉 **Resource Exhaustion:** Google Sheet menerima request berlebih.
+  * 🚫 **Denial of Service:** Google Apps Script mulai menolak request (Error 429/500).
+  * 💾 **Storage Spam:** Spreadsheet penuh dengan data palsu.
 
-Apps Script mulai menolak request
+### Langkah D: Verifikasi
 
-Tujuan lab: memahami titik lemah sistem absensi yang menggunakan public endpoint.
+Cek Google Spreadsheet target.
 
-D. Verifikasi Serangan
-Periksa Google Spreadsheet:
+  * Jika baris baru bertambah dengan sangat cepat → **Serangan Berhasil**.
+  * Jika Apps Script error/lambat → **Sistem Overload**.
 
-Jika baris bertambah sangat cepat → serangan berhasil
+-----
 
-Jika Apps Script mulai mengembalikan error → sistem overload
+## 🛡️ Bagian 2: Defense Implementation (Blue Team)
 
-## 2. Cara Defense (Mengamankan Sistem)
-Masalah utama:
-URL Google Apps Script terekspos di Serial Monitor, sehingga bisa dicuri siapa saja.
+**Masalah Utama:** Information Disclosure (URL bocor di Serial) dan tidak adanya otentikasi.
 
-A. Perbaikan pada Google Apps Script
-Tambahkan Secret Code di parameter, contoh:
+### A. Perbaikan Sisi Server (Google Apps Script)
 
+Tambahkan validasi **Secret Token** sebelum memproses data.
+
+```javascript
 function doGet(e) {
-  if (e.parameter.secret !== "KODE_RAHASIA_KAMU") {
-    return ContentService.createTextOutput("UNAUTHORIZED");
+  // Validasi Secret Token
+  if (e.parameter.secret !== "KODE_RAHASIA_SUPER_AMAN") {
+    return ContentService.createTextOutput("⛔ UNAUTHORIZED: Access Denied");
   }
-  // proses simpan data
+
+  // Lanjut proses simpan data jika token valid...
+  // ...
 }
-B. Perbaikan pada ESP32
-Tambahkan pengiriman secret code di request HTTP.
+```
 
-Hapus URL dari Serial Monitor agar tidak bisa diambil penyerang.
+### B. Perbaikan Sisi Device (ESP32)
 
-ESP32 hanya mengirim:
+1.  Sematkan token rahasia di dalam request HTTP.
+2.  **HAPUS** baris kode yang mencetak URL lengkap ke Serial Monitor.
 
-http.begin("https://script.google.com/.../exec?secret=KODE_RAHASIA_KAMU");
-Tidak ada lagi log URL di Serial.
+<!-- end list -->
 
-## Inti dari Semua Ini
-Attack: Menunjukkan betapa rentannya sistem jika URL API terpapar.
+```cpp
+// Contoh implementasi request yang aman
+String url = "[https://script.google.com/.../exec](https://script.google.com/.../exec)";
+String secret = "?secret=KODE_RAHASIA_SUPER_AMAN";
 
-Defense: Menutup celah dengan secret key + tidak menampilkan endpoint di Serial.
+// Kirim request (URL + Secret)
+http.begin(url + secret);
+
+// Serial.println(url); // <--- HAPUS BARIS INI (Jangan tampilkan endpoint di log)
+```
+
+-----
+
+## 💡 Key Takeaways
+
+| Kategori | Pelajaran Penting |
+| :--- | :--- |
+| **Attack** 🔴 | Sistem IoT rentan jika log debug (Serial Monitor) memaparkan endpoint sensitif tanpa proteksi. |
+| **Defense** 🔵 | Selalu gunakan **Autentikasi** (API Key/Token) dan **Sanitasi Log** (hapus print debug sensitif) pada tahap produksi. |
+
+-----
+
+*Created for Cyber Security Education Lab.*
+
+```
+
+**Would you like me to create the `attack.py` script file content for you to include in the repo as well?**
+```
