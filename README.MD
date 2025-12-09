@@ -7,11 +7,6 @@
 
 Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar (**Attack Simulation**) dan strategi mitigasi (**Defense**) pada sistem absensi berbasis ESP32 yang terintegrasi dengan Google Spreadsheet (via Google Apps Script).
 
-> **⚠️ DISCLAIMER PENTING**
->
-> Semua panduan, kode, dan instruksi dalam repositori ini ditujukan **hanya untuk keperluan pendidikan dan laboratorium**.
-> Penyalahgunaan informasi ini untuk menyerang sistem tanpa izin adalah tindakan ilegal dan sepenuhnya menjadi tanggung jawab pengguna.
-
 ---
 
 ## 🎯 Tujuan Lab
