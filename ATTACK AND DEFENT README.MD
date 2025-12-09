@@ -75,9 +75,6 @@ picocom -b 115200 /dev/ttyUSB0
 # Langkah C: Melancarkan Serangan (Flooding)
 
 Buat script Python sederhana (gunakan PyCharm/VS Code) untuk mengirim HTTP Request secara terus-menerus ke URL yang didapatkan tadi.
-### Berikut Kode Pycharm yang digunakan
-
-
 
 **Dampak yang diharapkan:**
 
