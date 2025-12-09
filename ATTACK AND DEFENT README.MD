@@ -112,6 +112,3 @@ http.begin(url + secret);
 | **Defense** 🔵 | Selalu gunakan **Autentikasi** (API Key/Token) dan **Sanitasi Log** (hapus print debug sensitif) pada tahap produksi. |
 
 -----
-
-**Would you like me to create the `attack.py` script file content for you to include in the repo as well?**
-```
