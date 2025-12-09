@@ -77,19 +77,10 @@ picocom -b 115200 /dev/ttyUSB0
 Buat script Python sederhana (gunakan PyCharm/VS Code) untuk mengirim HTTP Request secara terus-menerus ke URL yang didapatkan tadi.
 ### Berikut Kode Pycharm yang digunakan
 
-import requests
-import threading
-import time
-import uuid
-import random
-
 url_target = "Masukan"
-
-# BATAS PENGIRIMAN
 TARGET_LIMIT = 300
 total_requests = 0
 lock = threading.Lock()  # Kunci agar hitungan tidak bentrok antar thread
-
 
 def attack_google():
     global total_requests
@@ -97,7 +88,7 @@ def attack_google():
 
         with lock:
             if total_requests >= TARGET_LIMIT:
-                break  # Berhenti jika sudah 130
+                break  
 
             total_requests += 1
             current_request_num = total_requests
@@ -126,8 +117,7 @@ def attack_google():
             time.sleep(0.5)
 
         except Exception as e:
-            # Jika error koneksi, kurangi hitungan agar dicoba lagi (opsional)
-            # Tapi untuk aman, kita biarkan jalan terus
+           
             print(f"[{current_request_num}] Error Koneksi")
             time.sleep(1)
 
@@ -140,7 +130,7 @@ threads = []
 
 for i in range(jumlah_threads):
     t = threading.Thread(target=attack_google)
-    t.daemon = True  # Agar thread mati saat program utama selesai
+    t.daemon = True  
     threads.append(t)
 
 for t in threads:
