@@ -51,6 +51,7 @@ Cek Google Spreadsheet target.
 
   * Jika baris baru bertambah dengan sangat cepat → **Serangan Berhasil**.
   * Jika Apps Script error/lambat → **Sistem Overload**.
+  * Jika Pada Alat Absensi Di LCD mengeluarkan Teks QUOTA PENUH, CAN'T REGISTER.
 
 -----
 
