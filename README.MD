@@ -1,30 +1,27 @@
 
 
------
-
-````markdown
 # 🛡️ ESP32 Attendance System: Attack & Defense Lab
 
 Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar (**Attack Simulation**) dan strategi mitigasi (**Defense**) pada sistem absensi berbasis ESP32 yang terintegrasi dengan Google Spreadsheet (via Google Apps Script).
 
 ---
 
-## 🎯 Tujuan Lab
+# 🎯 Tujuan Lab
 1.  **Reconnaissance:** Memahami bagaimana informasi sensitif (URL Endpoint) bisa bocor melalui Serial Monitor.
 2.  **Exploitation:** Melakukan simulasi serangan (*flooding*) ke endpoint yang terekspos.
 3.  **Hardening:** Mengamankan sistem dengan mekanisme *Secret Token* dan sanitasi log.
 
 ---
 
-## ⚔️ Bagian 1: Attack Simulation (Red Team)
+# ⚔️ Bagian 1: Attack Simulation (Red Team)
 **Skenario:** Penyerang memiliki akses fisik ke perangkat ESP32 dan mencoba mencuri URL API untuk membanjiri database dengan data sampah.
 
-### Langkah A: Koneksi & Reconnaissance
+# Langkah A: Koneksi & Reconnaissance
 1.  Hubungkan ESP32 ke Laptop menggunakan kabel USB.
 2.  Pastikan driver terinstal dan perangkat terdeteksi.
 3.  Jika menggunakan **VirtualBox** (Linux VM), pastikan USB filter aktif agar ESP32 terbaca (`/dev/ttyUSB0`).
 
-### Langkah B: Mencuri URL Endpoint (Sniffing Serial)
+# Langkah B: Mencuri URL Endpoint (Sniffing Serial)
 Buka terminal Linux dan cek port serial:
 ```bash
 ls /dev/tty*
@@ -38,7 +35,7 @@ picocom -b 115200 /dev/ttyUSB0
 
 **Hasil:** Perhatikan output pada terminal. Salin **URL Google Apps Script** yang terekspos (tercetak) di log serial saat ESP32 mengirim data.
 
-### Langkah C: Melancarkan Serangan (Flooding)
+# Langkah C: Melancarkan Serangan (Flooding)
 
 Buat script Python sederhana (gunakan PyCharm/VS Code) untuk mengirim HTTP Request secara terus-menerus ke URL yang didapatkan tadi.
 
@@ -48,7 +45,7 @@ Buat script Python sederhana (gunakan PyCharm/VS Code) untuk mengirim HTTP Reque
   * 🚫 **Denial of Service:** Google Apps Script mulai menolak request (Error 429/500).
   * 💾 **Storage Spam:** Spreadsheet penuh dengan data palsu.
 
-### Langkah D: Verifikasi
+# Langkah D: Verifikasi
 
 Cek Google Spreadsheet target.
 
@@ -57,7 +54,7 @@ Cek Google Spreadsheet target.
 
 -----
 
-## 🛡️ Bagian 2: Defense Implementation (Blue Team)
+# 🛡️ Bagian 2: Defense Implementation (Blue Team)
 
 **Masalah Utama:** Information Disclosure (URL bocor di Serial) dan tidak adanya otentikasi.
 
@@ -77,7 +74,7 @@ function doGet(e) {
 }
 ```
 
-### B. Perbaikan Sisi Device (ESP32)
+# B. Perbaikan Sisi Device (ESP32)
 
 1.  Sematkan token rahasia di dalam request HTTP.
 2.  **HAPUS** baris kode yang mencetak URL lengkap ke Serial Monitor.
@@ -97,7 +94,7 @@ http.begin(url + secret);
 
 -----
 
-## 💡 Key Takeaways
+# 💡 Key Takeaways
 
 | Kategori | Pelajaran Penting |
 | :--- | :--- |
