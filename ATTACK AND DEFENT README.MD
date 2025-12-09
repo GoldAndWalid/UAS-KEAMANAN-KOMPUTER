@@ -103,9 +103,5 @@ http.begin(url + secret);
 
 -----
 
-*Created for Cyber Security Education Lab.*
-
-```
-
 **Would you like me to create the `attack.py` script file content for you to include in the repo as well?**
 ```
