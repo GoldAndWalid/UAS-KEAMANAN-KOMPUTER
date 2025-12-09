@@ -100,12 +100,3 @@ Proyek ini merupakan sistem absensi otomatis menggunakan kartu RFID yang terinte
 4. Data langsung masuk ke Google Spreadsheet.  
 
 ---
-
-## 📜 Lisensi
-Proyek ini bebas digunakan untuk kebutuhan pembelajaran, magang, dan pengembangan internal.
-
----
-
-## 👨‍💻 Pengembang
-Akbar Arnoval S  
-Dinas Perindustrian Provinsi Sumatera Selatan
