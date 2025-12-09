@@ -13,6 +13,8 @@ Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar 
 - Julian Afriansyah (09030282327024)
 - Rangga Saputra (09030282327051)
 
+---
+
 # 🎯 Tujuan Lab
 1.  **Reconnaissance:** Memahami bagaimana informasi sensitif (URL Endpoint) bisa bocor melalui Serial Monitor.
 2.  **Exploitation:** Melakukan simulasi serangan (*flooding*) ke endpoint yang terekspos.
