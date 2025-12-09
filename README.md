@@ -1,11 +1,11 @@
 # UAS-KEAMANAN-KOMPUTER
 
 # ANGGOTA KELOMPOK 3
-Harwidi Wahyu (09030282327036)
-Akbar Arnoval S (09030282327066)
-M Walid Farhan (09030282327039)
-Julian Afriansyah (09030282327024)
-Rangga Saputra (09030282327051)
+- Harwidi Wahyu (09030282327036)
+- Akbar Arnoval S (09030282327066)
+- M Walid Farhan (09030282327039)
+- Julian Afriansyah (09030282327024)
+- Rangga Saputra (09030282327051)
 
 # Sistem Absensi Database Google Spreadsheet  
 Berbasis *RFID, ESP32, LCD I2C, Buzzer & Push Button*
