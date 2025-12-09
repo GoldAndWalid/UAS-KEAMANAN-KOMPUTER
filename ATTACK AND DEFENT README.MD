@@ -21,6 +21,37 @@ Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar 
 3.  **Hardening:** Mengamankan sistem dengan mekanisme *Secret Token* dan sanitasi log.
 
 ---
+## 🧰 Teknologi & Hardware Digunakan
+- *ESP32*  
+  Sebagai mikrokontroler utama dan koneksi Wi-Fi ke Google Apps Script.
+
+- *RFID RC522 / MFRC522*  
+  Untuk membaca ID kartu.
+
+- *LCD 16x2 I2C*  
+  Untuk menampilkan informasi absensi.
+
+- *Buzzer Aktif*  
+  Notifikasi bunyi.
+
+- *Push Button*  
+  Untuk fitur pulang cepat dan Pendaftaran Kartu.
+
+- *Google Spreadsheet + Google Apps Script*  
+  Sebagai database absensi otomatis.
+
+
+# Deskripsi Perangkat (Sistem Absensi)
+Sebelum masuk ke Penetration Testing dan Defent , berikut adalah gambaran umum perangkat keras yang digunakan.
+## 📡 Alur Kerja Sistem
+1. ESP32 terhubung ke Wi-Fi.  
+2. Pengguna men-tap kartu RFID.  
+3. ESP32 mengirim ID kartu ke Google Apps Script via HTTP Request.  
+4. Apps Script menulis data ke Google Spreadsheet.  
+5. LCD I2C menampilkan status absensi.  
+6. Buzzer memberikan notifikasi.  
+7. Jika push button ditekan → mode Pulang Cepat.
+---
 
 # ⚔️ Bagian 1: Attack Simulation (Red Team)
 **Skenario:** Penyerang memiliki akses fisik ke perangkat ESP32 dan mencoba mencuri URL API untuk membanjiri database dengan data sampah.
