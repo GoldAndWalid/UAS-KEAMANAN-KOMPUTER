@@ -6,6 +6,12 @@
 Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar (**Attack Simulation**) dan strategi mitigasi (**Defense**) pada sistem absensi berbasis ESP32 yang terintegrasi dengan Google Spreadsheet (via Google Apps Script).
 
 ---
+# ANGGOTA KELOMPOK 3
+- Harwidi Wahyu Eka Saputra (09030282327036)
+- Akbar Arnoval S (09030282327066)
+- M Walid Farhan (09030282327039)
+- Julian Afriansyah (09030282327024)
+- Rangga Saputra (09030282327051)
 
 # 🎯 Tujuan Lab
 1.  **Reconnaissance:** Memahami bagaimana informasi sensitif (URL Endpoint) bisa bocor melalui Serial Monitor.
