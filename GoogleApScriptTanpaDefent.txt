@@ -6,7 +6,7 @@ function doGet(e) {
     result = 'No_Parameters';
   }
   else {
-    var sheet_id = '1mDBz9JaEwqUmGGEO4mZI54n2TWSUKjKLYscSR1UtvFI'; 	// ID Spreadsheet Anda
+    var sheet_id = 'Masukan ID Spreadsheet'; 	// ID Spreadsheet Anda
     var sheet_UD = 'User_Data';  // Nama sheet data user
     var sheet_AT = 'Attendance';  // Nama sheet presensi
 
@@ -206,3 +206,4 @@ Array.prototype.findIndex = function(search){
     if (this[i].toString().indexOf(search) > -1 ) return i;
 return-1;
 }
+
