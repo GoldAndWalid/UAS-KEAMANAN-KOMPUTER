@@ -64,17 +64,6 @@ Proyek ini merupakan sistem absensi otomatis menggunakan kartu RFID yang terinte
 
 ---
 
-## 📁 Struktur Folder (Contoh)
-
-/src
-  main.ino
-  rfid/
-  lcd/
-  google-script/
-README.md
-
-
----
 
 ## 🔧 Cara Instalasi & Setup
 
