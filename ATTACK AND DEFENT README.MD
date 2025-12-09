@@ -1,6 +1,7 @@
 
 
-# 🛡️ ESP32 Attendance System: Attack & Defense Lab
+# 🛡️ Penetration Testing: Sistem Absensi
+     Attack & Defense Lab
 
 Repositori ini dibuat untuk mendemonstrasikan simulasi pengujian keamanan dasar (**Attack Simulation**) dan strategi mitigasi (**Defense**) pada sistem absensi berbasis ESP32 yang terintegrasi dengan Google Spreadsheet (via Google Apps Script).
 
