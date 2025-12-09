@@ -1,4 +1,4 @@
-Berikut adalah format **README.md** yang sudah dirapikan dan siap Anda *copy-paste* langsung ke GitHub.
+
 
 -----
 
